@@ -1,0 +1,15 @@
+include includes/head
+head
+    script(src="/js/loginRegistreringCore.js" defer)
+include includes/header
+h2(class="text-center mb-4") Login
+div(class=" w-100 mx-auto" style="max-width: 300px")
+    form(action="/login", method="POST" class="needs-validation" novalidate)
+        div(class="form-floating mb-3")
+            input(type="text" name="username" class="form-control" id="floatingInput" placeholder="Username" required)
+            label(for="floatingInput") Brugernavn
+        div(class="form-floating mb-3")
+            input(type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" required)
+            label(for="floatingPassword") Kodeord
+        button(type="submit" class="btn btn-primary w-100 py-2") Log ind   
+include includes/footer

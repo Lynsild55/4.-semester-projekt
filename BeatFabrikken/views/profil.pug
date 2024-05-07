@@ -1,0 +1,36 @@
+include includes/head
+head 
+    script(src="/js/profilCore.js" defer)
+include includes/header
+
+div(class="container mt-4")
+    div(class="row")
+        div(class="col-md-8 offset-md-2")
+            h2(class="text-center mb-4") Brugerprofil
+            div(class="card")
+                div(class="card-body")
+                    form
+                        div(class="form-floating mb-3")
+                            input(type="text", class="form-control", id="floatingUsername", placeholder="Username", value=username, disabled)
+                            label(for="floatingUsername") Brugernavn
+                        div(class="form-floating mb-3")
+                            input(type="email", class="form-control", id="floatingEmail", placeholder="Email", value=email, disabled)
+                            label(for="floatingEmail") E-mail
+                        div(class="form-floating mb-3")
+                            input(type="text", class="form-control", id="floatingFirstname", placeholder="Firstname", value=firstname, disabled)
+                            label(for="floatingFirstname") Firstname 
+                        div(class="form-floating mb-3")
+                            input(type="text", class="form-control", id="floatingLastname", placeholder="Lastname", value=lastname, disabled)
+                            label(for="floatingLastname") Lastname 
+                        div(class="form-floating mb-3")
+                            input(type="text", class="form-control", id="floatingMobilnummer", placeholder="Mobilnummer", value=mobilnummer, disabled)
+                            label(for="floatingMobilnummer") Mobilnummer
+                        div(class="d-flex justify-content-between mt-3")
+                            a(href='/profil/edit', class='btn btn-primary') Rediger profil
+                            a(href='/profil/manageBookings', class='btn btn-primary') Se Bookinger
+
+include includes/footer
+
+
+
+

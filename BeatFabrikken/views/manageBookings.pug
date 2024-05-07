@@ -1,0 +1,33 @@
+include includes/head
+head 
+    script(src="/js/adminCore.js" defer)
+include includes/header
+
+div(class="container mt-4")
+    h2(class="text-center mb-4") Dine Bookinger
+    if bookinger && bookinger.length > 0
+        table(class="table table-striped mt-3 table-hover")
+            thead
+                tr
+                    th Dato
+                    th Tid
+                    th Lokale
+                    th Handling
+            tbody
+                each booking in bookinger
+                    tr
+                        td #{booking.dato}
+                        td #{booking.tid}
+                        td #{booking.lokaleId}
+                        td
+                            if booking.erFremtidig
+                                form(action=`/profil/manageBookings/delete/${booking.docID}` method="post")
+                                    button(type="submit" onclick="return confirm('Er du sikker på, at du vil slette denne booking?');" class="btn btn-danger") Annuller
+                            else
+                              span.text-succes Færdig
+    else
+        p Ingen bookinger fundet.
+
+include includes/footer
+
+

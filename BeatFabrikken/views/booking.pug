@@ -1,0 +1,170 @@
+include includes/head
+head 
+  script(src="/js/bookingCore.js" defer)
+include includes/header
+
+div(class="container")
+  div(class="alert alert-success visually-hidden text-center" role="alert" id="BookingSuccessAlert") Booking er blevet oprettet!
+  div(class="alert alert-danger visually-hidden text-center" role="alert" id="BookingLoginFailureAlert") Du er ikke logget ind!
+  div(class="alert alert-danger visually-hidden text-center" role="alert" id="BookingDateFailureAlert") Datoen du har valgt er udgået!
+  div(class="alert alert-danger visually-hidden text-center" role="alert" id="BookingFailureAlert") Der er allerede booket på dette tidspunkt! Se kalender for ledige tider!
+  div(class="alert alert-warning visually-hidden text-center" role="alert" id="BookingDeletedAlert") Der er blevet slettet en booking!
+
+h1(class="text-center mb-4") Booking
+br
+div(class="container")
+  div(class="row")
+    div(class="col")
+      div(class="mx-auto")
+        table(class="table table-bordered table-striped bookingTable")
+          thead(class="text-center")
+            tr
+              th
+              th Mandag
+              th Tirsdag
+              th Onsdag
+              th Torsdag
+              th Fredag
+              th Lørdag
+              th Søndag
+          tbody(class="text-center")
+            tr
+              td 08:00
+            tr
+              td 09:00
+            tr
+              td 10:00
+            tr
+              td 11:00
+            tr
+              td 12:00
+            tr
+              td 13:00
+            tr
+              td 14:00
+            tr
+              td 15:00
+            tr
+              td 16:00
+            tr
+              td 17:00
+            tr 
+              td 18:00
+            tr
+              td 19:00
+            tr
+              td 20:00
+            tr
+              td 21:00
+            tr
+              td 22:00
+        table(class="table" style="margin-left: 20%")
+          tbody(class="text-start d-inline-flex")
+            tr
+              td(class="text-bg-success")
+              td = Ledig
+              td(class="text-bg-danger")
+              td = Optaget
+              td(class="text-bg-warning")
+              td = Fri-træning
+              td(class="text-bg-primary")
+              td = Event
+              
+    div(class="col")
+      div(class="mx-auto w-340px")
+        label Vælg dato
+        br
+        input(type="date" id="datepicker")
+      br
+      div(class="ms-auto mx-auto w-340px")
+        div(class="form-floating")
+          select(class="form-select" id="lokaleSelect" onChange="clearCalendar()" aria-label="Floating label select example")
+            each lokale in lokaler
+              option(selected value=`${lokale.docID}`) #{lokale.docID}
+          label(for="lokaleSelect") Vælg lokale
+      br
+      div(class="ms-auto mx-auto w-340px")
+        div(class="form-floating")
+          select(class="form-select" id="tidSelect" aria-label="Floating label select example")
+              option(selected value="08:00") 08:00
+              option(value="09:00") 09:00
+              option(value="10:00") 10:00
+              option(value="11:00") 11:00
+              option(value="12:00") 12:00
+              option(value="13:00") 13:00
+              option(value="14:00") 14:00
+              option(value="15:00") 15:00
+              option(value="16:00") 16:00
+              option(value="17:00") 17:00
+              option(value="18:00") 18:00
+              option(value="19:00") 19:00
+              option(value="20:00") 20:00
+              option(value="21:00") 21:00
+              option(value="22:00") 22:00
+          label(for="tidSelect") Vælg tid
+          br
+        div(class="mx-auto")
+          if isAdmin
+            div(class="btn-group-vertical gap-2" role="group" aria-label="Basic radio toggle button group")
+                input(onclick="showHideForm(1)" type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked)
+                label(class="btn btn-outline-primary" for="btnradio1") Enkelt booking
+                input(onclick="showHideForm(2)" type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off")
+                label(class="btn btn-outline-primary" for="btnradio2") Fast booking
+                input(onclick="showHideForm(3)" type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off")
+                label(class="btn btn-outline-primary" for="btnradio3") Event booking
+            br
+            br
+            div(class="container visually-hidden px-0" id="fastBookForm")
+              div(class="form-floating mb-3")
+                select(class="form-select" id="holdSelect" aria-label="Floating label select example")
+                  each h in hold
+                    option(selected value=`${h.holdNavn}`) #{h.holdNavn}
+                  option(value="åben træning") Åben træning
+                label(for="holdSelect") Vælg for hvilket hold eller åben træning
+              div(class="mx-auto w-340px")
+                label(for="datepickerSlut")  Vælg slutdato for træning
+                br
+                input(type="date" id="datepickerSlut")
+              br  
+            div(class="container visually-hidden px-0 mb-3" id="eventBookForm")
+              div(class="form-floating mb-3")
+                input(type="text" name="eventNavn" class="form-control" id="eventNavn" placeholder="eventNavn" required)
+                label(for="eventNavn") Eventnavn
+              div(class="form-floating mb-3")
+                input(type="text" name="eventDeltagere" class="form-control" id="eventDeltagere" placeholder="eventDeltagere" required)
+                label(for="eventDeltagere") Antal deltagere
+              div(class="mx-auto w-340px")
+                label(for="datepickerSlutEvent")  Vælg slutdato for event
+                br
+                input(type="date" id="datepickerSlutEvent")
+              br
+              div(class="mx-auto w-340px")
+                div(class="form-floating")
+                  select(class="form-select" id="sluttidSelect" aria-label="Floating label select example")
+                    option(selected value="00:00") 00:00
+                    option(value="01:00") 01:00
+                    option(value="02:00") 02:00
+                    option(value="03:00") 03:00
+                    option(value="04:00") 04:00
+                    option(value="05:00") 05:00
+                    option(value="06:00") 06:00
+                    option(value="07:00") 07:00
+                    option(value="08:00") 08:00
+                    option(value="09:00") 09:00
+                    option(value="10:00") 10:00
+                    option(value="11:00") 11:00
+                    option(value="12:00") 12:00
+                    option(value="13:00") 13:00
+                    option(value="14:00") 14:00
+                    option(value="15:00") 15:00
+                    option(value="16:00") 16:00
+                    option(value="17:00") 17:00
+                    option(value="18:00") 18:00
+                    option(value="19:00") 19:00
+                    option(value="20:00") 20:00
+                    option(value="21:00") 21:00
+                    option(value="22:00") 22:00
+                    option(value="23:00") 23:00
+                  label(for="sluttidSelect") Vælg sluttid 
+        button(onclick="book()" class="btn btn-primary w-100 py-2") Book
+include includes/footer

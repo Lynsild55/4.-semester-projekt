@@ -1,0 +1,31 @@
+include includes/head
+head
+    script(src="/js/loginRegistreringCore.js" defer)
+    script(src="/js/validation.js" defer)
+
+include includes/header
+h1(class="text-center mb-4") Opret ny bruger
+div(class=" w-100 mx-auto" style="max-width: 300px")
+    form(action="/registrering", method="POST" class="needs-validation" id="registrationForm" novalidate)
+        div(class="form-floating mb-3")
+            input(type="username" name="username" class="form-control" id="floatingUsername" placeholder="Username" required)
+            label(for="floatingUsername") Brugernavn
+            div(class="invalid-feedback visually-hidden" id="username-exists") Brugernavn findes allerede
+        div(class="form-floating mb-3")
+            input(type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password" required)
+            label(for="floatingPassword") Kodeord
+        div(class="mb-3 input-group")
+            div(class="form-floating")
+                input(type="text" name="firstName" class="form-control" id="floatingFirstname" placeholder="Fornavn" required)
+                label(for="floatingFirstname") Fornavn
+            div(class="form-floating")
+                input(type="text" name="lastName" class="form-control" id="floatingLastname" placeholder="Efternavn" required)
+                label(for="floatingLastname") Efternavn
+        div(class="form-floating mb-3")
+            input(type="email" name="email" class="form-control" id="floatingEmail" placeholder="Email" required)
+            label(for="floatingEmail") Email
+        div(class="form-floating mb-3")
+            input(type="number" name="mobilnummer" class="form-control" id="floatingMobilnummer" placeholder="Mobilnummer" required)
+            label(for="floatingMobilnummer") Mobilnummer
+        button(onclick="addUser()" class="btn btn-primary w-100 py-2") Opret bruger
+include includes/footer

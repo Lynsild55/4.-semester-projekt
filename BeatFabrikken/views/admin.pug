@@ -1,0 +1,63 @@
+include includes/head
+head         
+    script(src="/js/adminCore.js" defer)
+include includes/header
+
+div(class="container")
+    div(class="row")
+        div(class="col" style="max-width: 300px")
+            div(class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;")
+                div(class="btn-group-vertical gap-2" role="group" aria-label="Basic radio toggle button group")
+                    input(onclick="showHideTab(1)" type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked)
+                    label(class="btn btn-outline-primary" for="btnradio1") Opret hold
+                    input(onclick="showHideTab(2)" type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off")
+                    label(class="btn btn-outline-primary" for="btnradio2") Bookinger
+        div(class="col")
+            div(id="tab1")
+                h1(class="text-center mb-4") Opret hold
+                div(class=" w-100 mx-auto" style="max-width: 300px")
+                    form(action="/opretHold", method="POST" class="needs-validation" id="opretHoldForm" novalidate)
+                        div(class="form-floating mb-3")
+                            input(type="text" name="alder" class="form-control" id="floatingAlder" placeholder="Alder" required)
+                            label(for="floatingAlder") Alder
+                        div(class="form-floating mb-3")
+                            input(type="text" name="holdNavn" class="form-control" id="floatingHoldNavn" placeholder="Holdnavn" required)
+                            label(for="floatingHoldnavn") Holdnavn
+                            div(class="invalid-feedback visually-hidden" id="holdNavn-exists") Holdnavnet findes allerede
+                        div(class="form-floating mb-3")
+                            input(type="text" name="instruktør" class="form-control" id="floatingInstruktør" placeholder="Instruktør" required)
+                            label(for="floatingInstruktør") Instruktør
+                        div(class="form-floating mb-3")
+                            input(type="text" name="pris" class="form-control" id="floatingPris" placeholder="Pris" required)
+                            label(for="floatingPris") Pris
+                        button(onclick="addHold()" class="btn btn-primary w-100 py-2") Opret hold
+            
+            div(class="visually-hidden" id="tab2")
+                h2(class="text-center mb-4") Vælg lokale
+                div(class="ms-auto mx-auto w-340px")
+                    div(class="form-floating")
+                        select(class="form-select" id="lokaleSelect" onChange="clearBookingsFromTable()" aria-label="Floating label select example")
+                            if lokaler && lokaler.length
+                                each lokale in lokaler
+                                    option(selected value=`${lokale.docID}`) #{lokale.docID}
+                            else
+                                // Handle the case where lokaler is undefined or empty
+                                option(value='') Ingen lokaler
+                            
+
+                div(class="container mt-4")
+                    h2(class="text-center mb-4") Bookinger
+                    if bookinger && bookinger.length > 0
+                        table(class="booking table booking table-striped mt-3 booking table-hover")
+                            thead
+                                tr
+                                    th Bruger
+                                    th Dato
+                                    th Tid
+                                    th Lokale
+                                    th Handling
+                            tbody
+                                
+                                       
+                
+include includes/footer
